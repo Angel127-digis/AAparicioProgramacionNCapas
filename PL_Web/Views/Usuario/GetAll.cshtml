@@ -1,0 +1,254 @@
+﻿@model ML.Usuario
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model.Usuarios.Count > 0)
+{
+
+    <section class="contenedor--form mb-5 ">
+        <article class="form_ocultar">
+            <h2 class="text-center mb-4">Buscar registro</h2>
+            @using (Html.BeginForm("GetAll", "Usuario", FormMethod.Post, new { @class = "d-flex justify-content-evenly align-items-center" }))
+            {
+                <div>
+                    @Html.LabelFor(model => model.Nombre)
+                    @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", @id = "nombre" })
+                </div>
+
+                <div>
+                    @Html.LabelFor(model => model.ApellidoPaterno)
+                    @Html.TextBoxFor(model => model.ApellidoPaterno, new { @class = "form-control", @id = "apellidoPaterno" })
+                </div>
+
+                <div>
+                    @Html.LabelFor(model => model.ApellidoMaterno)
+                    @Html.TextBoxFor(model => model.ApellidoMaterno, new { @class = "form-control", @id = "apellidoMaterno" })
+                </div>
+                <div>
+                    @*@Html.TextBoxFor(model => model.Rol.IdRol)*@
+                    @*@Html.LabelFor(model => model.Rol.IdRol)*@
+                    @Html.DropDownListFor(model => model.Rol.IdRol, new SelectList(Model.Rol.Rols, "IdRol", "Nombre"), "Seleccione una opcion", new { @class = "form-select", @id = "idRol" })
+                </div>
+                <div>
+                    <button href="@Url.Action("GetAll", "Usuario")" class="btn btn-primary">Enviar</button>
+                </div>
+            }
+        </article>
+        <div>
+            <button href="@Url.Action("GetAll", "Usuario")" id="btnOcultar" class="btn btn-primary">Ocultar</button>
+        </div>
+    </section>
+    <section class="container--agregar">
+        <div class="Agregar"><a href="@Url.Action("Form", "Usuario")" class="btn btn-success">Agregar Registro</a></div>
+    </section>
+    <section class="container">
+        <div class="row">
+            <div class="col  table-responsive">
+                <table class="table" border="1">
+                    <thead>
+                        <tr class="head--row">
+                            <th class="editar" scope="col">Editar</th>
+                            <th scope="col">Estatus</th>
+                            <th scope="col">IMG</th>
+                            <th scope="col">UserName</th>
+                            <th scope="col">Nombre</th>
+                            @*<th scope="col">Apellido Paterno</th>*@
+                            @*<th scope="col">Apellido Materino</th>*@
+                            <th scope="col">Direccion</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Password</th>
+                            <th scope="col">Fecha de nacimiento</th>
+                            <th scope="col">Sexo</th>
+                            <th scope="col">Telefono</th>
+                            <th scope="col">Celular</th>
+                            <th scope="col">CURP</th>
+                            <th scope="col">IdRol</th>
+                            <th class="eliminar" scope="col">Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody class="tBody">
+                        @foreach (ML.Usuario usuario in Model.Usuarios)
+                        {
+                            <tr class="body--row">
+                                <td class="editar">
+                                    <a href="@Url.Action("Form", "Usuario", new {IdUsuario = usuario.IdUsuario})" class="btn btn-warning"><i class="bi bi-pencil"></i></a>
+                                </td>
+                                <td>
+                                    @if (usuario.Estatus)
+                                    {
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" checked onchange="CambiarStatus(@usuario.IdUsuario, this)">
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" onchange="CambiarStatus(@usuario.IdUsuario, this)">
+                                        </div>
+                                    }
+                                </td>
+                                <td>
+                                    @if (usuario.Imagen != null)
+                                    {
+                                        <div class="contenedor--img">
+                                            <img class="img" src="data:image/*;base64, @Convert.ToBase64String(usuario.Imagen)">
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="contenedor--img">
+                                            <img id="img" class="img" src="https://static.vecteezy.com/system/resources/previews/024/983/914/non_2x/simple-user-default-icon-free-png.png" alt="Img Usuario">
+                                        </div>
+                                    }
+                                </td>
+                                <td>@usuario.UserName</td>
+                                <td>@usuario.Nombre @usuario.ApellidoPaterno @usuario.ApellidoMaterno</td>
+                                <td>@usuario.Direccion.Calle, @usuario.Direccion.Colonia.CodigoPostal, @usuario.Direccion.NumeroExterior, @usuario.Direccion.NumeroInterior</td>
+                                <td>@usuario.Email</td>
+                                <td>@usuario.Password</td>
+                                <td>@usuario.FechaNacimiento</td>
+                                <td>@usuario.Sexo</td>
+                                <td>@usuario.Telefono</td>
+                                <td>@usuario.Celular</td>
+                                <td>@usuario.CURP</td>
+                                <td>@usuario.Rol.Nombre</td>
+                                <td class="eliminar">
+                                    <a href="@Url.Action("Delete", "Usuario", new { IdUsuario = usuario.IdUsuario })" class="btn btn-danger" onclick="return confirm('¿Seguro que quieres eliminarlo?')"><i class="bi bi-trash3-fill"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+}
+<style>
+    @@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    :root {
+        --colorRowBodyOdd: #90e0ef;
+        --colorRowBodyEven: #caf0f8;
+        --colorEditar: #f77f00;
+        --colorEliminar: #d62828;
+        --colorTxt: #fff;
+        --colorBg: #fff;
+        --colorBgTableHead: #023e8a;
+        --row: 1r;
+    }
+    
+
+    .container {
+        max-width: 1536px;
+        transform: scale(.95);
+    }
+
+    .table > thead {
+        vertical-align: middle;
+    }
+
+    .Agregar {
+        text-align: center;
+        margin: 20px 0;
+    }
+
+    .table {
+        text-align: center;
+    }
+
+    .head--row {
+        background-color: var(--colorBgTableHead);
+        color: var(--colorTxt);
+    }
+
+    .tBody {
+        vertical-align: middle !important;
+    }
+
+    .contenedor--img {
+        width: 100px;
+        height: 100px;
+        /*        position: initial;*/
+        /*        border: solid;*/
+    }
+
+    .img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .body--row:nth-child(odd) {
+        background-color: var(--colorRowBodyOdd);
+    }
+
+    .body--row:nth-child(even) {
+        background-color: var(--colorRowBodyEven);
+    }
+
+    td.editar,
+    td.eliminar {
+        background-color: var(--colorBg);
+    }
+
+    th.editar {
+        background-color: var(--colorEditar);
+        color: var(--colorTxt);
+    }
+
+    th.eliminar {
+        background-color: var(--colorEliminar);
+        color: var(--colorTxt);
+    }
+
+    .form--mostrar{
+        --row: 1fr;
+    }
+
+    .form--ocultar {
+        display: grid;
+        grid-template-rows: var(--row, 0fr);
+        transition: 1s grid-template-rows;
+    }
+</style>
+<script src="~/Scripts/jquery-3.7.0.js"></script>
+<script>
+    function CambiarStatus (IdUsuario, input) {
+        let status = input.checked;
+        $.ajax({
+        url: "@Url.Action("CambiarStatus", "Usuario")",
+        dataType: "json",
+        type: "POST",
+        data: {
+            IdUsuario,
+            status
+        },
+        success: function (result) {
+            if (result.Correct) {
+                //algo
+            } else {
+                alert("Hubo un error")
+            }
+        },
+        error: function (xhr) {
+            console.log(xhr)
+        }
+        })
+    }
+    $('#btnOcultar').click( () => {
+
+        $('.form_ocultar').toggleClass('form--ocultar')
+        //$('#btnOcultar').
+
+    })
+
+</script>
+
+

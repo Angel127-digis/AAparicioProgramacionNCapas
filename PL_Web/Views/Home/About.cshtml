@@ -1,0 +1,180 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+<main class="main">
+    <div class="cont">
+        <div class="cont--ojo">
+            <div class="ojo">
+                <span class="tomo tomo1"></span>
+                <span class="tomo tomo2"></span>
+                <span class="tomo tomo3"></span>
+            </div>
+        </div>
+    </div>
+</main>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        background-color: #000;
+    }
+
+    .main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        color: #fff;
+    }
+
+    .cont {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: solid;
+        height: 300px;
+        width: 300px;
+        border-radius: 0px 200px;
+        transform: rotate(-45deg);
+        overflow: hidden;
+        background-color: #fff;
+    }
+
+        .cont::after {
+            content: "";
+            height: 300px;
+            width: 300px;
+            border: solid #fff;
+            border-radius: 0px 200px;
+            position: absolute;
+            transform: rotate(0);
+            top: -185px;
+            left: 185px;
+            background-color: #000;
+            animation: cerrar 3s 1s linear infinite alternate;
+        }
+
+    .cont--ojo {
+        height: 200px;
+        width: 200px;
+        border: 5px solid #000;
+        border-radius: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: red;
+    }
+
+    .ojo {
+        height: 120px;
+        width: 120px;
+        border: solid #000;
+        position: relative;
+        border-radius: 100%;
+        animation: rotar 3s linear infinite;
+    }
+
+        .ojo::after {
+            content: "";
+            height: 20px;
+            width: 20px;
+            background-color: #000;
+            border-radius: 100%;
+            position: absolute;
+            top: calc(50% - 10px);
+            left: calc(50% - 10px);
+        }
+
+    .tomo {
+        height: 15px;
+        width: 15px;
+        background-color: #fff;
+        position: absolute;
+        border-radius: 100%;
+        background: #000;
+    }
+
+    .tomo1 {
+        left: calc(50% - 7.5px);
+        top: -7.5px;
+    }
+
+        .tomo1::after {
+            content: "";
+            height: 15px;
+            width: 15px;
+            background-color: inherit;
+            position: absolute;
+            top: -5px;
+            left: 1px;
+            border-radius: 40px 5px;
+        }
+
+    .tomo2 {
+        left: -7.5px;
+        top: calc(50% + 7.5px);
+    }
+
+        .tomo2::after {
+            content: "";
+            height: 15px;
+            width: 15px;
+            background-color: inherit;
+            position: absolute;
+            left: -5px;
+            top: 1px;
+            border-radius: 40px 5px;
+        }
+
+    .tomo3 {
+        right: 13px;
+        top: calc(50% + 40px);
+    }
+
+        .tomo3::after {
+            content: "";
+            height: 15px;
+            width: 15px;
+            background-color: inherit;
+            position: absolute;
+            right: -5px;
+            top: 1px;
+            border-radius: 5px 40px;
+        }
+
+    @@keyframes rotar {
+        from {
+            transform: rotate(0deg);
+        }
+
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    @@keyframes cerrar {
+        from {
+            top: -185px;
+            left: 185px;
+        }
+
+        10% {
+            top: -185px;
+            left: 185px;
+        }
+
+        90% {
+            top: -2px;
+            left: -2px;
+        }
+
+        to {
+            top: -2px;
+            left: -2px;
+        }
+    }
+</style>
