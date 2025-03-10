@@ -1,4 +1,5 @@
 ﻿using BL;
+using ML;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,9 @@ namespace PL
     {
         static void Main(string[] args)
         {
-            Usuario.Menu();
+            //Usuario.Menu();
+            //Carga_Masiva carga = new Carga_Masiva();
+            Carga_Masiva.CargaMasiva();
             Console.ReadKey();
         }
     }
