@@ -14,7 +14,8 @@ namespace PL
         {
             //Usuario.Menu();
             //Carga_Masiva carga = new Carga_Masiva();
-            Carga_Masiva.CargaMasiva();
+            //Carga_Masiva.CargaMasiva();
+            LeerExcel.Leer();
             Console.ReadKey();
         }
     }

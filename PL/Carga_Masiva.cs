@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -18,9 +19,32 @@ namespace PL
             {
                 StreamReader streamReader = new StreamReader(ruta);
                 String fila = "";
+
+                streamReader.ReadLine();
+
                 while ((fila = streamReader.ReadLine()) != null)
                 {
-                    Console.WriteLine(fila);
+                    String[] registros = fila.Split('|');
+
+                    ML.Usuario usuario = new ML.Usuario();
+                    usuario.Rol = new ML.Rol();
+
+                    usuario.Nombre = registros[0];
+                    usuario.ApellidoPaterno = registros[1];
+                    usuario.ApellidoMaterno = registros[2];
+                    usuario.Telefono = registros[3];
+                    usuario.Email = registros[4];
+                    usuario.Password = registros[5];
+                    usuario.FechaNacimiento = registros[6];
+                    usuario.Sexo = registros[7];
+                    usuario.Celular = registros[8];
+                    usuario.Estatus = Convert.ToBoolean(Convert.ToInt32(registros[9]));
+                    usuario.CURP = registros[10];
+                    usuario.Rol.IdRol = Convert.ToInt32(registros[11]);
+                    usuario.UserName = registros[12];
+                    usuario.Imagen = null;
+
+                    BL.Usuario.Add(usuario);
                 }
                 result.Correct = true;
             }

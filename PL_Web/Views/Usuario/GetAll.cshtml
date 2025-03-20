@@ -1,13 +1,72 @@
 ﻿@model ML.Usuario
+@*ViewBag.ErroresExcel = ViewBag.ErroresExcel;*@
 @{
     ViewBag.Title = "GetAll";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var errores = ViewBag.ErroresExcel;
+}
+
+
+<section class="mb-3">
+    <article>
+        <div class="text-center">
+            <button class="btn btn-excel" id="btn-excel">Agregar Excel</button>
+        </div>
+    </article>
+    <article class="mb-3 mt-3" id="formExcel">
+        @using (Html.BeginForm("CargaMasiva", "Usuario", FormMethod.Post, new { @enctype = "multipart/form-data", @class="d-flex" }))
+        {
+            if (Session["RutaExcel"] == null)
+            {
+                <div class="input-group">
+                    <input class="form-control" type="file" name="excel" id="InputExcel" />
+                    @*<label>Ingrese el Archivo Excel</label>*@
+                </div>
+
+
+                <div>
+                    <button class="btn btn-outline-secondary" id="btnCambiar">Enviar y validar</button>
+                </div>
+            }
+            else
+            {
+                <div>
+                    <label>Archivo validado</label>
+                    <input type="file" name="excel" id="InputExcel" />
+                </div>
+
+
+                <div>
+                    <button id="btnCambiar">Insertar</button>
+                </div>
+            }
+        }
+    </article>
+</section>
+
+@if (errores != null)
+{
+    <section class="TablaErrores">
+        @foreach (ML.ResultExcel error in errores)
+        {
+            <div>
+                <p>Hubo un erro en el registro @error.NumeroRegistro</p>
+            </div>
+            <div>
+                <p>Mensaje de error @error.ErrorMessage</p>
+            </div>
+
+        }
+    </section>
+
 }
 
 @if (Model.Usuarios.Count > 0)
 {
-
     <section class="contenedor--form mb-5 ">
+        <div class="text-center">
+            <button href="@Url.Action("GetAll", "Usuario")" id="btnOcultar" class="btn btn-primary">Mostrar Busqueda</button>
+        </div>
         <article class="form_ocultar">
             <h2 class="text-center mb-4">Buscar registro</h2>
             @using (Html.BeginForm("GetAll", "Usuario", FormMethod.Post, new { @class = "d-flex justify-content-evenly align-items-center" }))
@@ -36,9 +95,7 @@
                 </div>
             }
         </article>
-        <div>
-            <button href="@Url.Action("GetAll", "Usuario")" id="btnOcultar" class="btn btn-primary">Ocultar</button>
-        </div>
+
     </section>
     <section class="container--agregar">
         <div class="Agregar"><a href="@Url.Action("Form", "Usuario")" class="btn btn-success">Agregar Registro</a></div>
@@ -144,7 +201,15 @@
         --colorBgTableHead: #023e8a;
         --row: 1r;
     }
-    
+
+    .input-group{
+        width: initial;
+    }
+
+    .d-flex {
+        justify-content: center;
+        gap: 10px;
+    }
 
     .container {
         max-width: 1536px;
@@ -176,8 +241,6 @@
     .contenedor--img {
         width: 100px;
         height: 100px;
-        /*        position: initial;*/
-        /*        border: solid;*/
     }
 
     .img {
@@ -208,47 +271,27 @@
         color: var(--colorTxt);
     }
 
-    .form--mostrar{
-        --row: 1fr;
+    .form_ocultar,
+    #formExcel {
+        display: none;
     }
 
-    .form--ocultar {
-        display: grid;
-        grid-template-rows: var(--row, 0fr);
-        transition: 1s grid-template-rows;
+    .btn {
+        text-align: center;
     }
+
+    .btn-excel{
+            background-color: darkgreen;
+        color: #fff;
+    }
+        .btn-excel:hover {
+        background-color: forestgreen;
+        color: #fff;
+        }
 </style>
 <script src="~/Scripts/jquery-3.7.0.js"></script>
 <script>
-    function CambiarStatus (IdUsuario, input) {
-        let status = input.checked;
-        $.ajax({
-        url: "@Url.Action("CambiarStatus", "Usuario")",
-        dataType: "json",
-        type: "POST",
-        data: {
-            IdUsuario,
-            status
-        },
-        success: function (result) {
-            if (result.Correct) {
-                //algo
-            } else {
-                alert("Hubo un error")
-            }
-        },
-        error: function (xhr) {
-            console.log(xhr)
-        }
-        })
-    }
-    $('#btnOcultar').click( () => {
-
-        $('.form_ocultar').toggleClass('form--ocultar')
-        //$('#btnOcultar').
-
-    })
-
+    var cambiarStatus = "@Url.Action("CambiarStatus", "Usuario")";
 </script>
-
+<script src="~/Scripts/Usuario/UsuarioGetAll.js"></script>
 
