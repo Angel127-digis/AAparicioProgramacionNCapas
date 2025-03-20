@@ -7,6 +7,7 @@ using System.Data;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Data.Entity.Core.Metadata.Edm;
 using System.Data.Entity.Migrations;
+using System.Data.OleDb;
 using System.Data.SqlClient;
 using System.Globalization;
 using System.Linq;
@@ -47,7 +48,8 @@ namespace BL
                     cmd.Parameters.AddWithValue("@Celular", usuario.Celular);
                     cmd.Parameters.AddWithValue("@Estatus", binario);
                     cmd.Parameters.AddWithValue("@CURP", usuario.CURP);
-                    //cmd.Parameters.AddWithValue("@Imagen", usuario.Imagen);
+                    cmd.Parameters.AddWithValue("@IdRol", usuario.Rol.IdRol);
+                    cmd.Parameters.AddWithValue("@Imagen", usuario.Imagen);
 
 
                     context.Open(); //abrir la conexion con la BD
@@ -372,8 +374,8 @@ namespace BL
                     string formato = "dd/MM/yyyy";
                     DateTime dateTime = DateTime.ParseExact(fecha, formato, CultureInfo.InvariantCulture);
 
-                    //usuario.Direccion = new ML.Direccion();
-                    //usuario.Direccion.Colonia = new ML.Colonia();
+                    usuario.Direccion = new ML.Direccion();
+                    usuario.Direccion.Colonia = new ML.Colonia();
 
                     int rowsAffect = context.UsuarioAdd(usuario.UserName, usuario.Nombre, usuario.ApellidoPaterno, usuario.ApellidoMaterno, usuario.Email, usuario.Password, dateTime, usuario.Sexo, usuario.Telefono, usuario.Celular, usuario.Estatus, usuario.CURP, usuario.Imagen, usuario.Rol.IdRol, usuario.Direccion.Calle, usuario.Direccion.NumeroInterior, usuario.Direccion.NumeroExterior, usuario.Direccion.Colonia.IdColonia);
 
@@ -531,7 +533,6 @@ namespace BL
                                 usuarioItem.Direccion.Colonia.IdColonia = 0;
                             }
 
-
                             result.Objects.Add(usuarioItem);
                         }
                         result.Correct = true;
@@ -646,7 +647,6 @@ namespace BL
 
             return result;
         }
-
         public static ML.Result AddLINQ(ML.Usuario usuario)
         {
             ML.Result result = new ML.Result();
@@ -916,6 +916,144 @@ namespace BL
                 result.Correct = false;
                 result.ErrorMessage = ex.Message;
                 result.Ex = ex;
+            }
+            return result;
+        }
+        public static ML.Result LeerExcel(String cadenaConexion)
+        {
+            ML.Result result = new ML.Result();
+            try
+            {
+                using (OleDbConnection context = new OleDbConnection(cadenaConexion))
+                {
+                    String query = "SELECT * FROM[Sheet1$]";
+                    using (OleDbCommand cmd = new OleDbCommand(query, context))
+                    {
+                        OleDbDataAdapter adapter = new OleDbDataAdapter();
+                        adapter.SelectCommand = cmd;
+
+                        DataTable tablaUsuario = new DataTable();
+                        adapter.Fill(tablaUsuario);
+
+                        if (tablaUsuario.Rows.Count > 0)
+                        {
+                            result.Objects = new List<object>();
+                            foreach (DataRow registros in tablaUsuario.Rows)
+                            {
+                                ML.Usuario usuario = new ML.Usuario();
+                                usuario.Rol = new ML.Rol();
+
+                                usuario.Nombre = registros[0].ToString();
+                                usuario.ApellidoPaterno = registros[1].ToString();
+                                usuario.ApellidoMaterno = registros[2].ToString();
+                                usuario.Telefono = registros[3].ToString();
+                                usuario.Email = registros[4].ToString();
+                                usuario.Password = registros[5].ToString();
+                                usuario.FechaNacimiento = registros[6].ToString();
+                                usuario.Sexo = registros[7].ToString();
+                                usuario.Celular = registros[8].ToString();
+                                usuario.Estatus = Convert.ToBoolean(Convert.ToInt16(registros[9]));
+                                usuario.CURP = registros[10].ToString();
+                                usuario.Rol.IdRol = Convert.ToInt16(registros[11]);
+                                usuario.UserName = registros[12].ToString();
+                                usuario.Imagen = null;
+
+                                result.Objects.Add(usuario);
+                            }
+                            result.Correct = true;
+                        }
+                    }
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                result.Correct = false;
+                result.ErrorMessage = ex.Message;
+                result.Ex = ex;
+            }
+            return result;
+        }
+
+        public static ML.Result ValidarExcel(List<object> registros)
+        {
+            ML.Result result = new ML.Result();
+            result.Objects = new List<object>();
+            int contador = 1;
+            //result.ErrorMessage = "";
+            String error = "";
+
+            foreach (ML.Usuario usuario in registros)
+            {
+               
+            ML.ResultExcel resultExcel = new ML.ResultExcel();
+
+                if (usuario.Nombre.Length > 50 || usuario.Nombre == "" || usuario.Nombre == null)
+                {
+                    error += "El nombre es muy largo o es vacio|";
+                }
+
+                if (usuario.ApellidoPaterno.Length > 50 || usuario.ApellidoPaterno == "" || usuario.ApellidoPaterno == null)
+                {
+                    error += "El Apellido Paterno es muy largo o es vacio|";
+                }
+
+                if (usuario.ApellidoMaterno.Length > 50 || usuario.ApellidoMaterno == "" || usuario.ApellidoMaterno == null)
+                {
+                    error += "El Apellido Paterno es muy largo o es vacio|";
+                }
+
+                if (usuario.Telefono.Length > 20 || usuario.Telefono == "" || usuario.Telefono == null)
+                {
+                    error += "El numero de telefono es muy largo o es vacio|";
+                }
+
+                if (usuario.Email.Length > 254 || usuario.Email == "" || usuario.Email == null)
+                {
+                    error += "El email es muy largo o es vacio|";
+                }
+
+                if (usuario.Password.Length > 50 || usuario.Password == "" || usuario.Password == null)
+                {
+                    error += "La contraseña es muy larga o es vacia|";
+                }
+
+                if (usuario.FechaNacimiento == "" || usuario.FechaNacimiento == null)
+                {
+                    error += "La fecha de nacimiento es vacia|";
+                }
+
+                if (usuario.Sexo.Length > 2 || usuario.Sexo == "" || usuario.Sexo == null)
+                {
+                    error += "El sexo es muy largo o es vacio|";
+                }
+
+                if (usuario.Celular.Length > 20 || usuario.Celular == "" || usuario.Celular == null)
+                {
+                    error += "El numero celularl es muy largo o es vacio|";
+                }
+
+                if (usuario.Estatus == null)
+                {
+                    error += "El estatus es vacio|";
+                }
+
+                if (usuario.CURP.Length > 50 || usuario.CURP == "" || usuario.CURP == null)
+                {
+                    error += "La CURP es muy larga o es vacio|";
+                }
+
+                if (error != "")
+                {
+                    //Hubo un error
+                    //result.ErrorMessage = error;
+                    resultExcel.ErrorMessage = error;
+                    resultExcel.NumeroRegistro = contador;
+                    result.Objects.Add(resultExcel);
+                    error = "";
+                }
+                contador++;
             }
             return result;
         }
