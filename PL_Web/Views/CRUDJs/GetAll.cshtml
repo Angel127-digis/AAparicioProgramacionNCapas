@@ -1,0 +1,81 @@
+﻿@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Button trigger modal -->
+@*<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+    Launch static backdrop modal
+</button>*@
+
+
+<section>
+    <button id="btnModal">
+            Mostrar modal
+        </button>
+</section>
+
+<section>
+    <article class="col  table-responsive">
+        <table class="table">
+            <thead>
+                <tr class="head--row">
+                    <th class="editar" scope="col">Editar</th>
+                    <th scope="col">Estatus</th>
+                    <th scope="col">IMG</th>
+                    <th scope="col">UserName</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Direccion</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Password</th>
+                    <th scope="col">Fecha de nacimiento</th>
+                    <th scope="col">Sexo</th>
+                    <th scope="col">Telefono</th>
+                    <th scope="col">Celular</th>
+                    <th scope="col">CURP</th>
+                    <th scope="col">IdRol</th>
+                    <th class="eliminar" scope="col">Eliminar</th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+            </tbody>
+        </table>
+    </article>
+</section>
+
+
+<style>
+    @@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+
+    .container {
+        max-width: 1536px;
+        transform: scale(.95);
+    }
+
+    .table {
+        text-align: center;
+    }
+
+        .table > thead {
+            vertical-align: middle;
+        }
+
+    .contenedor--img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .img {
+        width: 100%;
+        height: 100%;
+    }
+</style>
+<script src="~/Scripts/jquery-3.7.0.js"></script>
+<script>
+    var urlGetAllJs = "@Url.Action("GetAllJs", "CRUDJs")"
+    var urlDelete = "@Url.Action("Delete", "CRUDJs")?idUsuario"
+    var urlForm = "@Url.Action("Form", "CRUDJs")?idUsuario"
+    var urlGetByIdUsuario = "@Url.Action("GetByIdUsuario", "CRUDJs")?idUsuario="
+</script>
+<script src="~/Scripts/CRUD/GetAllJs.js"></script>
+

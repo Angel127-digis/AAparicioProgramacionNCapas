@@ -169,6 +169,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CRUDJsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
@@ -209,6 +210,8 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="libman.json" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
+    <Content Include="Scripts\CRUD\GetAllJs.js" />
+    <Content Include="Scripts\CRUD\_Modal.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
     <Content Include="Scripts\jquery-3.7.0.slim.js" />
@@ -256,12 +259,15 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\CRUDJs\GetAll.cshtml" />
     <None Include="Views\Home\.editorconfig" />
     <Content Include="Views\Home\Usuario.cshtml" />
     <Content Include="Views\Usuario\GetAll.cshtml" />
     <Content Include="Views\Usuario\Form.cshtml" />
     <Content Include="Views\Usuario\_Modal.cshtml" />
     <Content Include="Views\Usuario\_ModalErrores.cshtml" />
+    <Content Include="Views\Usuario\GetAllJs.cshtml" />
+    <Content Include="Views\Usuario\_ModelFormulario.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

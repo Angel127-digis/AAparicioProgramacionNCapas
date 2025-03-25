@@ -502,7 +502,10 @@ namespace BL
                             usuarioItem.Celular = row.Celular;
                             usuarioItem.Estatus = row.Estatus;
                             usuarioItem.CURP = row.CURP;
-                            usuarioItem.Imagen = row.Imagen;
+                            usuarioItem.Imagen = row.Imagen; //array bytes
+
+                          
+                            usuarioItem.ImagenBase64 = Convert.ToBase64String(row.Imagen ?? new byte[0]);
                             usuarioItem.Rol.Nombre = row.NombreRol;
                             usuarioItem.Direccion.Calle = row.Calle;
                             usuarioItem.Direccion.NumeroExterior = row.NumeroExterior;
@@ -588,6 +591,7 @@ namespace BL
                         usuarioItem.Estatus = row.Estatus;
                         usuarioItem.CURP = row.CURP;
                         usuarioItem.Imagen = row.Imagen;
+                        usuarioItem.ImagenBase64 = Convert.ToBase64String(row.Imagen ?? new byte[0]);
                         usuarioItem.Direccion.Calle = row.Calle;
                         usuarioItem.Direccion.NumeroExterior = row.NumeroExterior;
                         usuarioItem.Direccion.NumeroInterior = row.NumeroInterior;

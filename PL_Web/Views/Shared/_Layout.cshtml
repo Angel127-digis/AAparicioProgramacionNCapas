@@ -23,7 +23,7 @@
                     <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("Ver Usuarios", "GetAll", "Usuario", new { area = "" }, new { @class = "nav-link" })</li>
                 </ul>
-                 @Html.Partial("_LoginPartial")
+                @Html.Partial("_LoginPartial")
             </div>
         </div>
     </nav>
@@ -35,6 +35,149 @@
         </footer>
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="Formulario" name="Formulario" method="POST" enctype="multipart/form-data">
+                        <div>
+                            <div id="mostrarImagen">
+                                @*<img src="#" alt="Alternate Text" id="mostrarImagen"/>*@
+                            </div>
+                            <input type="file" id="inpImagen" name="ImagenBase64" />
+                            <label for="ImagenBase64">Ingrese una imagen</label>
+                        </div>
+                        <div>
+                            <input type="text" id="inpUserName" name="UserName" />
+                            <label for="inpUserName">UserName</label>
+                        </div>
+                        <div>
+                            <input type="text" id="Nombre" name="Nombre" />
+                            <label for="Nombre">Nombre</label>
+                        </div>
+                        <div>
+                            <input type="text" id="ApellidoPaterno" name="ApellidoPaterno" />
+                            <label for="ApellidoPaterno">Apellido Paterno</label>
+                        </div>
+                        <div>
+                            <input type="text" id="ApellidoMaterno" name="ApellidoMaterno" />
+                            <label for="ApellidoMaterno">Apellido Materno</label>
+                        </div>
+                        <div>
+                            <input type="text" id="Email" name="Email" />
+                            <label for="Email">Email</label>
+                        </div>
+                        <div>
+                            <input type="text" id="Password" name="Password" />
+                            <label for="Password">Password</label>
+                        </div>
+                        <div>
+                            <input type="text" id="datepicker" name="FechaNacimiento" />
+                            <label for="datepicker">Fecha de nacimineto</label>
+                        </div>
+                        <div>
+                            <div class="cont_radio">
+                                <div class="input--radio">
+                                    <input type="radio" name="sexo" value="H">
+                                    <label for="sexo">H</label>
+                                </div>
+                                <div class="input--radio">
+                                    <input type="radio" name="sexo" value="M">
+                                    <label for="sexo">M</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <input type="text" id="Telefono" name="Telefono" />
+                            <label for="Telefono">Telefono</label>
+                        </div>
+                        <div>
+                            <input type="text" id="Celular" name="Celular" />
+                            <label for="Celular">Celular</label>
+                        </div>
+                        <div>
+                            <input type="text" id="CURP" name="CURP" />
+                            <label for="CURP">CURP</label>
+                        </div>
+                        <div>
+                            <select id="ddlRol" name="Rol.IdRol">
+                                <option value="value">Selecciona una opcion</option>
+                            </select>
+                        </div>
+                        <hr />
+                        <div>
+                            <input type="text" id="Calle" name="Direccion.Calle" />
+                            <label for="Calle">Calle</label>
+                        </div>
+                        <div>
+                            <input type="text" id="NumeroInterior" name="Direccion.NumeroInterior" />
+                            <label for="NumeroInterior">NumeroInterior</label>
+                        </div>
+                        <div>
+                            <input type="text" id="NumeroExterior" name="Direccion.NumeroExterior" />
+                            <label for="NumeroExterior">NumeroExterior</label>
+                        </div>
+                        <div>
+                            <select id="ddlEstado" name="Direccion.Colonia.Municipio.Estado.IdEstado" onchange="MunicipioGetByIdEstado(this.value)">
+                                @*<option value="value">Selecciona una opcion</option>*@
+                            </select>
+                        </div>
+                        <div>
+                            <select id="ddlMunicipio" name="Direccion.Colonia.Municipio.IdMunicipio" onchange="ColoniaGetByIdMunicipio(this.value)">
+                                <option value="value">Selecciona una opcion</option>
+                            </select>
+                        </div>
+                        <div>
+                            <select id="ddlColonia" name="Direccion.Colonia.IdColonia">
+                                <option value="value">Selecciona una opcion</option>
+                            </select>
+                        </div>
+                        <div>
+                            <button id="btnForm" href="@Url.Action("GetAll", "CRUDJs")">Enviar</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Understood</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var urlUsuarioAdd = "@Url.Action("UsuarioAdd", "CRUDJs")"
+        var urlDDLRol = "@Url.Action("DDLRol", "CRUDJs")"
+        var urlDDLEstado = "@Url.Action("DDLEstado", "CRUDJs")"
+        var ddlURLMunicipio = "@Url.Action("MunicipioGetByIdEstado", "CRUDJs")?idEstado=";
+        var ddlURLColonia = "@Url.Action("ColoniaGetByIdMunicipio", "CRUDJs")?IdMunicipio=";
+    </script>
+    <script>
+        $('#Formulario').on('submit', function (event) {
+            event.preventDefault();
+            console.log(urlUsuarioAdd)
+            var formData = $(this).serialize();
+
+            $.ajax({
+                url: urlUsuarioAdd,
+                type: 'POST',
+                data: formData,
+                success: function (response) {
+                    console.log('Respuesta del servidor:', response);
+                    alert(response.message);
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error al enviar los datos:', error);
+                    alert('Hubo un error al enviar los datos');
+                }
+            });
+        });
+    </script>
+    <script src="~/Scripts/CRUD/GetAllJs.js"></script>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

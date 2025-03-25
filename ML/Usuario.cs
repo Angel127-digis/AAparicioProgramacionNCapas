@@ -57,6 +57,7 @@ namespace ML
         public ML.Rol Rol { get; set; }
         public ML.Direccion Direccion { get; set; }
         public byte[] Imagen { get; set; }
+        public String ImagenBase64 { get; set; }
         public List<object> Usuarios { get; set; }
     }
 }

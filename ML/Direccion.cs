@@ -12,7 +12,7 @@ namespace ML
         public String Calle { get; set; }
         public String NumeroInterior { get; set; }
         public String NumeroExterior { get; set; }
-        //public ML.Usuario Usuario { get; set; }
+        
         public ML.Colonia Colonia { get; set; }
         public List<object> Direcciones { get; set; }
     }
