@@ -118,8 +118,8 @@ var GetAllEstado = () => {
     })
 }
 
-var MunicipioGetByIdEstado = () => {
-    //console.log(e)
+var MunicipioGetByIdEstado = (callback) => {
+    
     let ddl = ddlURLMunicipio + $('#ddlEstado').val()
     console.log(ddl)
     $.ajax({
@@ -132,7 +132,7 @@ var MunicipioGetByIdEstado = () => {
                 let ddlMunicipio = $('#ddlMunicipio');
                 ddlMunicipio.empty();
 
-                let defaultSelect = `<option value="">Seleccione un Municipio</option>`
+                let defaultSelect = `<option value="0">Seleccione un Municipio</option>`
                 ddlMunicipio.append(defaultSelect)
 
                 $.each(result.Objects, (i, valor) => {
@@ -141,6 +141,8 @@ var MunicipioGetByIdEstado = () => {
 
                 })
 
+                // Ejecuta el callback cuando termine de llenar los municipios
+                if (callback) callback();
             }
         },
         error: xhr => {
@@ -149,8 +151,8 @@ var MunicipioGetByIdEstado = () => {
     })
 }
 
-var ColoniaGetByIdMunicipio = () => {
-    let ddl = ddlURLColonia + $('#ddlMunicipio').va()
+var ColoniaGetByIdMunicipio = (callback) => {
+    let ddl = ddlURLColonia + $('#ddlMunicipio').val()
 
     console.log(ddl)
     $.ajax({
@@ -170,7 +172,8 @@ var ColoniaGetByIdMunicipio = () => {
                     let option = `<option value="${valor.IdColonia}">${valor.Nombre}</option>`;
                     ddlColonia.append(option)
                 })
-
+                // Ejecuta el callback cuando termine de llenar los municipios
+                if (callback) callback();
             }
         },
         error: xhr => {
@@ -275,6 +278,8 @@ var update = (id) => {
     limpiarModal()
     GetAllRol()
     GetAllEstado()
+    //$('#ddlEstado option[value=1]').prop('selected', 'selected').change(() => {
+    //});
     $.ajax({
         url: urlGetById,
         type: "GET",
@@ -291,7 +296,7 @@ var update = (id) => {
 
                 console.log(usuario)
                 //cambiarImagen()
-                $('#mostrarImagen').html(cambiarImagen(usuario.ImagenBase64))
+                //$('#mostrarImagen').html(cambiarImagen(usuario.ImagenBase64))
                 $('#inpUserName').val(usuario.UserName)
                 $('#Nombre').val(usuario.Nombre)
                 $('#ApellidoPaterno').val(usuario.ApellidoPaterno)
@@ -308,10 +313,24 @@ var update = (id) => {
                 $('#NumeroInterior').val(usuario.Direccion.NumeroInterior)
                 $('#NumeroExterior').val(usuario.Direccion.NumeroExterior)
                 $('#ddlEstado').val(usuario.Direccion.Colonia.Municipio.Estado.IdEstado)
-                MunicipioGetByIdEstado()
-                $('#ddlMunicipio').val(usuario.Direccion.Colonia.Municipio.IdMunicipio)
-                ColoniaGetByIdMunicipio()
-                $('#ddlColonia').val(usuario.Direccion.Colonia.IdColonia)
+                //MunicipioGetByIdEstado()
+                //$('#ddlMunicipio').val('1')
+                //$("#ddlMunicipio option[value= 1]").attr("selected", true);
+
+                MunicipioGetByIdEstado(function () {
+                    // 3. Seleccionar el municipio correcto y cargar colonias
+                    $('#ddlMunicipio').val(usuario.Direccion.Colonia.Municipio.IdMunicipio);
+
+                    // 4. Llamar a la función que llena colonias (y después seleccionar)
+                    ColoniaGetByIdMunicipio(function () {
+                        // 5. Seleccionar la colonia correcta
+                        $('#ddlColonia').val(usuario.Direccion.Colonia.IdColonia);
+                    });
+                });
+
+                //console.log($('#ddlMunicipio').val())
+                //ColoniaGetByIdMunicipio()
+                //$('#ddlColonia').val(usuario.Direccion.Colonia.IdColonia)
 
 
             }
