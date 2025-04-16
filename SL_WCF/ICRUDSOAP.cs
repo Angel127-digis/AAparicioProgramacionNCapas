@@ -26,5 +26,9 @@ namespace SL_WCF
         [OperationContract]
         [ServiceKnownType(typeof(ML.Usuario))]
         ResultSOAP GetAll(ML.Usuario usuario);
+
+        [OperationContract]
+        [ServiceKnownType(typeof(ML.Usuario))]
+        ResultSOAP GetById(int idUsuario);
     }
 }

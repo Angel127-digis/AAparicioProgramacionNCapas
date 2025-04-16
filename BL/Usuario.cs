@@ -414,6 +414,8 @@ namespace BL
                     string formato = "dd/MM/yyyy";
                     DateTime dateTime = DateTime.ParseExact(fecha, formato, CultureInfo.InvariantCulture);
 
+                    usuario.Imagen = usuario.Imagen == null ? new byte[0] : usuario.Imagen;
+
                     int rowsAffect = context.UsuarioUpdate(usuario.UserName, usuario.Nombre, usuario.ApellidoPaterno, usuario.ApellidoMaterno, usuario.Email, usuario.Password, dateTime, usuario.Sexo, usuario.Telefono, usuario.Celular, usuario.Estatus, usuario.CURP, usuario.Imagen, usuario.Rol.IdRol, usuario.IdUsuario, usuario.Direccion.Calle, usuario.Direccion.NumeroInterior, usuario.Direccion.NumeroExterior, usuario.Direccion.Colonia.IdColonia);
 
                     if (rowsAffect > 0)
@@ -589,7 +591,7 @@ namespace BL
                         usuarioItem.Celular = row.Celular;
                         usuarioItem.Estatus = row.Estatus;
                         usuarioItem.CURP = row.CURP;
-                        usuarioItem.Imagen = row.Imagen;
+                        //usuarioItem.Imagen = row.Imagen;
                         usuarioItem.Direccion.Calle = row.Calle;
                         usuarioItem.Direccion.NumeroExterior = row.NumeroExterior;
                         usuarioItem.Direccion.NumeroInterior = row.NumeroInterior;

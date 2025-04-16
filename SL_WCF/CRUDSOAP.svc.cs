@@ -66,5 +66,19 @@ namespace SL_WCF
                 Objects = result.Objects
             };
         }
+
+        public ResultSOAP GetById(int idUsuario)
+        {
+            ML.Result result = BL.Usuario.GetByIdEF(idUsuario);
+
+            return new ResultSOAP
+            {
+                Correct = result.Correct,
+                ErrorMessage = result.ErrorMessage,
+                Object = result.Object,
+                Objects = result.Objects
+            };
+        }
+
     }
 }

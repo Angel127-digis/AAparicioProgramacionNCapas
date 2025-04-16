@@ -89,16 +89,28 @@
 
                 <div class="cont_radio">
                     @*@Html.TextBoxFor(model => model.Sexo, new { @required = "required", @class = "soloLetras borrarSpam" })
-                        @Html.LabelFor(model => model.Sexo)*@
+        @Html.LabelFor(model => model.Sexo)*@
                     @*<sapam class="error"></sapam>*@
-                    <div class="input--radio">
-                        <input type="radio" name="sexo" value="H">
-                        <label for="sexo">H</label>
-                    </div>
-                    <div class="input--radio">
-                        <input type="radio" name="sexo" value="M">
-                        <label for="sexo">M</label>
-                    </div>
+                    @if (Model.Sexo == "M")
+                    {
+                        <div class="input--radio">
+                            <input type="radio" name="sexo" value="H">
+                            <label for="sexo">H</label>
+                        </div><div class="input--radio">
+                            <input type="radio" name="sexo" value="M" checked>
+                            <label for="sexo">M</label>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="input--radio">
+                            <input type="radio" name="sexo" value="H" checked>
+                            <label for="sexo">H</label>
+                        </div><div class="input--radio">
+                            <input type="radio" name="sexo" value="M">
+                            <label for="sexo">M</label>
+                        </div>
+                    }
                 </div>
 
                 <div>
@@ -220,9 +232,11 @@
             width: 28%;
             flex-grow: 3;
         }
-    .form-select{
+
+    .form-select {
         margin: 0 auto;
     }
+
     .contenedor--img {
         width: 100px;
         height: 100px;
@@ -299,7 +313,7 @@
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.js"></script>
 <script>
-    
+
     //let ddlMunicipio = $('#ddlEstado').val()
     var ddlURLMunicipio = "@Url.Action("GetByIdMunicipio", "Usuario")?idEstado=";
     var ddlURLColonia = "@Url.Action("GetByIdColonia", "Usuario")?IdMunicipio=";

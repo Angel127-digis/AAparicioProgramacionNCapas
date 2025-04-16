@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="79252738-f435-4968-9bd2-d186e1c45814" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:52372/CRUDSOAP.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="CRUDSOAP.xsd" MetadataType="Schema" ID="1c6d80ea-685d-4a99-bf88-102a26bd9c91" SourceId="1" SourceUrl="http://localhost:52372/CRUDSOAP.svc?xsd=xsd3" />
+    <MetadataFile FileName="CRUDSOAP1.xsd" MetadataType="Schema" ID="2282a21e-1c78-4769-8aca-1f5702387620" SourceId="1" SourceUrl="http://localhost:52372/CRUDSOAP.svc?xsd=xsd5" />
+    <MetadataFile FileName="CRUDSOAP2.xsd" MetadataType="Schema" ID="5898685c-f2b9-458c-b27b-5ed8fadb0681" SourceId="1" SourceUrl="http://localhost:52372/CRUDSOAP.svc?xsd=xsd0" />
+    <MetadataFile FileName="CRUDSOAP3.xsd" MetadataType="Schema" ID="764f013b-49fc-4fe6-80ef-f0975ab8bcd6" SourceId="1" SourceUrl="http://localhost:52372/CRUDSOAP.svc?xsd=xsd2" />
+    <MetadataFile FileName="CRUDSOAP.wsdl" MetadataType="Wsdl" ID="4f53a6aa-9bfd-4b11-a7b0-dcb5d58e716a" SourceId="1" SourceUrl="http://localhost:52372/CRUDSOAP.svc?wsdl" />
+    <MetadataFile FileName="CRUDSOAP.disco" MetadataType="Disco" ID="698d7aaf-e670-4620-b1a2-af0990c8f1a8" SourceId="1" SourceUrl="http://localhost:52372/CRUDSOAP.svc?disco" />
+    <MetadataFile FileName="CRUDSOAP4.xsd" MetadataType="Schema" ID="ea6eb90b-f952-44c4-8927-2ffe65b027f3" SourceId="1" SourceUrl="http://localhost:52372/CRUDSOAP.svc?xsd=xsd1" />
+    <MetadataFile FileName="CRUDSOAP5.xsd" MetadataType="Schema" ID="9e31cf6d-92e8-405f-a652-e9e8391897a5" SourceId="1" SourceUrl="http://localhost:52372/CRUDSOAP.svc?xsd=xsd4" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

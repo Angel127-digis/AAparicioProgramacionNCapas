@@ -81,6 +81,9 @@
     <Compile Include="EstadoGetAll_Result.cs">
       <DependentUpon>AAparicioProgramacionNCapas.tt</DependentUpon>
     </Compile>
+    <Compile Include="Materia.cs">
+      <DependentUpon>AAparicioProgramacionNCapas.tt</DependentUpon>
+    </Compile>
     <Compile Include="Municipio.cs">
       <DependentUpon>AAparicioProgramacionNCapas.tt</DependentUpon>
     </Compile>
