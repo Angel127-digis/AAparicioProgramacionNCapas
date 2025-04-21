@@ -8,65 +8,61 @@
     var errorExcel = ViewBag.ErroresExcel;
 
 }
+@if (error == null || error == "")
+{
+    <div class="modal" tabindex="-1" role="dialog" id="Modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Aviso</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
 
-<div class="modal" tabindex="-1" role="dialog" id="Modal">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Aviso</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                @foreach (ML.ResultExcel error in errorExcel)
+                <div class="modal-body">
+                    <h2>Regsitros ingresados correctamente: @error[0]</h2>
+                </div>
+                <div class="modal-body">
+                    <h2>Registros incorrectos: @error[1]</h2>
+                </div>
+                @for (int i = 2; i < @error.Count; i++)
                 {
-                    <div class="cont-fila">
-
-                        <div>
-                            <p>Hubo un error en el registro @error.NumeroRegistro</p>
-                        </div>
-                        <div id="error-@error.NumeroRegistro" class="fila-mensaje">
-                            <!-- Usa un ID único -->
-                            @*<p>Mensaje de error @error.ErrorMessage</p>*@
-                        </div>
+                    <div class="modal-body">
+                        <h2>Los registros que se agregaron mal fueron, regustro: @error[i]</h2>
                     </div>
-                    <script>
-            // Define la función fuera del bucle
-            function CortarCadena(errorMessage, numeroRegistro) {
-                let cadena = errorMessage;
-                let arregloDeErrores = cadena.split('|').slice(0, -1);
-                console.log(arregloDeErrores);
-
-                let salida = "";
-                for (let error of arregloDeErrores) {
-                    salida += `
-                        <div>
-                            <p>Mensaje de error: ${error}</p>
-                        </div>
-                    `;
                 }
-                console.log(salida);
-
-                let errores = document.getElementById('error-' + numeroRegistro); // Usa el ID único
-                if (errores) {
-                    errores.innerHTML = salida; // Asigna el contenido al elemento
-                } else {
-                    console.error("El elemento con ID 'error-" + numeroRegistro + "' no existe.");
-                }
-            }
-
-            // Llama a la función con los parámetros correctos
-            CortarCadena("@error.ErrorMessage", "@error.NumeroRegistro");
-                    </script>
-                }
-            </div>
-            <div class="modal-footer">
-                @Html.ActionLink("Continuar", "GetAll", "Usuario", new { area = "" }, htmlAttributes: new { @class = "btn btn-danger" })
+                <div class="modal-footer">
+                    @Html.ActionLink("Continuar", "GetAll", "Usuario", new { area = "" }, htmlAttributes: new { @class = "btn btn-danger" })
+                </div>
             </div>
         </div>
     </div>
-</div>
+}
+else
+{
+    <div class="modal" tabindex="-1" role="dialog" id="Modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Aviso</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <h2>@error</h2>
+                </div>
+                    <div class="modal-body">
+                    </div>
+                <div class="modal-footer">
+                    @Html.ActionLink("Continuar", "GetAll", "Usuario", new { area = "" }, htmlAttributes: new { @class = "btn btn-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+}
 <script>
     $('#Modal').modal()
 </script>

@@ -44,4 +44,5 @@ namespace SL_WCF
             set { stringValue = value; }
         }
     }
+    
 }

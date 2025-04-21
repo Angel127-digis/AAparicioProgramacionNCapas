@@ -5,10 +5,11 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="22e1c3f4ace0427491821675b9b4be90" Name="Diagram1">
-        <EntityTypeShape EntityType="AAparicioProgramacionNCapasModel.Colonia" Width="1.5" PointX="9.625" PointY="2.25" />
+        <EntityTypeShape EntityType="AAparicioProgramacionNCapasModel.Colonia" Width="1.5" PointX="3" PointY="7.125" />
         <EntityTypeShape EntityType="AAparicioProgramacionNCapasModel.Direccion" Width="1.5" PointX="5.25" PointY="1.875" />
-        <EntityTypeShape EntityType="AAparicioProgramacionNCapasModel.Estado" Width="1.5" PointX="9.75" PointY="5.375" />
-        <EntityTypeShape EntityType="AAparicioProgramacionNCapasModel.Municipio" Width="1.5" PointX="7.25" PointY="3.625" />
+        <EntityTypeShape EntityType="AAparicioProgramacionNCapasModel.Estado" Width="1.5" PointX="1.5" PointY="10.375" />
+        <EntityTypeShape EntityType="AAparicioProgramacionNCapasModel.Materia" Width="1.5" PointX="5.75" PointY="5.75" />
+        <EntityTypeShape EntityType="AAparicioProgramacionNCapasModel.Municipio" Width="1.5" PointX="0.75" PointY="7.25" />
         <EntityTypeShape EntityType="AAparicioProgramacionNCapasModel.Rol" Width="1.5" PointX="0.75" PointY="2.375" />
         <EntityTypeShape EntityType="AAparicioProgramacionNCapasModel.Usuario" Width="1.5" PointX="3" PointY="1" />
         <AssociationConnector Association="AAparicioProgramacionNCapasModel.FK__Colonia__IdMunic__4316F928" />

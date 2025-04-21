@@ -373,9 +373,11 @@ namespace BL
                     string fecha = usuario.FechaNacimiento;
                     string formato = "dd/MM/yyyy";
                     DateTime dateTime = DateTime.ParseExact(fecha, formato, CultureInfo.InvariantCulture);
+                    usuario.Imagen = usuario.Imagen == null ? new byte[0] : usuario.Imagen;
 
-                    usuario.Direccion = new ML.Direccion();
-                    usuario.Direccion.Colonia = new ML.Colonia();
+                    //usuario.Direccion = new ML.Direccion();
+                    //usuario.Direccion.Colonia = new ML.Colonia();
+                    
 
                     int rowsAffect = context.UsuarioAdd(usuario.UserName, usuario.Nombre, usuario.ApellidoPaterno, usuario.ApellidoMaterno, usuario.Email, usuario.Password, dateTime, usuario.Sexo, usuario.Telefono, usuario.Celular, usuario.Estatus, usuario.CURP, usuario.Imagen, usuario.Rol.IdRol, usuario.Direccion.Calle, usuario.Direccion.NumeroInterior, usuario.Direccion.NumeroExterior, usuario.Direccion.Colonia.IdColonia);
 
@@ -411,6 +413,8 @@ namespace BL
                     string fecha = usuario.FechaNacimiento;
                     string formato = "dd/MM/yyyy";
                     DateTime dateTime = DateTime.ParseExact(fecha, formato, CultureInfo.InvariantCulture);
+
+                    usuario.Imagen = usuario.Imagen == null ? new byte[0] : usuario.Imagen;
 
                     int rowsAffect = context.UsuarioUpdate(usuario.UserName, usuario.Nombre, usuario.ApellidoPaterno, usuario.ApellidoMaterno, usuario.Email, usuario.Password, dateTime, usuario.Sexo, usuario.Telefono, usuario.Celular, usuario.Estatus, usuario.CURP, usuario.Imagen, usuario.Rol.IdRol, usuario.IdUsuario, usuario.Direccion.Calle, usuario.Direccion.NumeroInterior, usuario.Direccion.NumeroExterior, usuario.Direccion.Colonia.IdColonia);
 
@@ -502,10 +506,7 @@ namespace BL
                             usuarioItem.Celular = row.Celular;
                             usuarioItem.Estatus = row.Estatus;
                             usuarioItem.CURP = row.CURP;
-                            usuarioItem.Imagen = row.Imagen; //array bytes
-
-                          
-                            usuarioItem.ImagenBase64 = Convert.ToBase64String(row.Imagen ?? new byte[0]);
+                            //usuarioItem.Imagen = row.Imagen;
                             usuarioItem.Rol.Nombre = row.NombreRol;
                             usuarioItem.Direccion.Calle = row.Calle;
                             usuarioItem.Direccion.NumeroExterior = row.NumeroExterior;
@@ -590,8 +591,7 @@ namespace BL
                         usuarioItem.Celular = row.Celular;
                         usuarioItem.Estatus = row.Estatus;
                         usuarioItem.CURP = row.CURP;
-                        usuarioItem.Imagen = row.Imagen;
-                        usuarioItem.ImagenBase64 = Convert.ToBase64String(row.Imagen ?? new byte[0]);
+                        //usuarioItem.Imagen = row.Imagen;
                         usuarioItem.Direccion.Calle = row.Calle;
                         usuarioItem.Direccion.NumeroExterior = row.NumeroExterior;
                         usuarioItem.Direccion.NumeroInterior = row.NumeroInterior;
